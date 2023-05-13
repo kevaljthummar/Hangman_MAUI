@@ -3,39 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Hangman_MAUI.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
-
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
-
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
-
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
-
+    <Grid RowDefinitions=".6*,.4">
+        <VerticalStackLayout>
+        <Label 
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            Text="{Binding GameStatus}"/>
+            <Image Source="{Binding CurrentImage}" HeightRequest="200"/>
+            <Label FontSize="40"
+               HorizontalOptions="Center"
+               Text="{Binding Spotlight}"
+               VerticalOptions="Center"/>
+            <Label Text="{Binding Message}"
+                   FontSize="Large"
+                   HorizontalTextAlignment="Center"/>
+            <Button Text="Reset" HorizontalOptions="Center" WidthRequest="100" Clicked="Reset_Clicked"/>
         </VerticalStackLayout>
-    </ScrollView>
+        
+        <FlexLayout Grid.Row="1"
+                    Wrap="Wrap"
+                    JustifyContent="SpaceEvenly"
+                    BindableLayout.ItemsSource="{Binding Letters}"
+                    x:Name="LettersContainer">
+            
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Button
+                        HeightRequest="50"
+                        WidthRequest="50"
+                        Text="{Binding .}"
+                        Clicked="Button_Clicked"/>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+            
+        </FlexLayout>
+    </Grid>
 
 </ContentPage>
